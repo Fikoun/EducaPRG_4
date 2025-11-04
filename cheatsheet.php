@@ -5,20 +5,18 @@
 /**                         
  *  Základní tahákový mustr, takových najdete na internetu mnoho.
  *  Zde naleznete ty základy co jsme probírary a budou se vám hodit. Taky něco navíc (označeno pluskem //+)
- *  Je důležité si uvědomovat že v kódu vše vždy běží od zvrchu dolů "řádek po řádku" !
+ *  Je důležité si uvědomovat že vše vždy běží od zvrchu dolů "řádek po řádku" !
  *  Přemyšlet nad tím co dělám a čeho chci dosáhnout je klíčové, aby jsme si mohli uvědomit jaké struktury/nástroje k tomu máme dostupné !!!
  *  Popřípadě vždy stačí vygooglit specifiký problém/pojem a máme 🙌
- *  Nejlepší je si vždy spustit/otestovat to čemu nerozumím a odtamtud hledat o co se jedná dál...
+ *  Nejlepší je si vždy spustit/otestovat to čemu nerozumím a od tamtud hledat o co se jedná dál...
  */
 
 ///  Vypsání do console či prohlížeče   ///
 echo ("Toto je muj vypsaný String!"); // nebo s proměnou echo($prom)
-
-// Taky máme print_r, který dokáže vypsat i jiné než jeno text/číslo
+// Taky máme...
+print_r($echo);
 print_r($prom);
 print_r(["Tady", "muzu", "vypsat", "třeba", "pole"]);
-
-// A nebo var_dump
 var_dump(1.2); //+ Vypíše typ a obsah proměnné => float(1.2)
 
 
@@ -56,32 +54,27 @@ echo HESLO_DO_DATABAZE;
 ///////////////////////////////////////////////////
 
 // Počítání s čísly
-$vysledek = $cele + 5; // Dalš operace:  +  -  *  -  /
+$vysledek = $cele + 5; //  + - * - 
 $zbytek = 13 % 5; // znak modulo -> zbytek po deleni
-
-// Skládáme rovnice pomocí závorek
 $v = 3 + 6 - ($cislo * 3) / $desetine;
-
 $v = pow($zaklad, $mocnina); //+ Mocnina
 $squareRoot = sqrt($zaklad); //+ Druhá odmocnina
-
 // Zaokrouhlujeme round(), zaokr. nahoru ceil() a dolu floor()
 // Modifikace proměnné [ +=  -=  /=  *= ]
 $desetine += 10.2; // přičte a uloží
 $desetine /= 2; // vydělí a uloží
-$desetine++; $desetine--; // Přídá++ či Odebere-- číslo jedna
+$desetine++; $desetine--; // Přídá / Odebere pouze jedničku
 
-// Manipulace s řetězci (String)
+// Manipulace s řetězci
 $jmeno = "Pavle"; // Uvozovky dvojího typu ( " / ' )
 $jmeno = 'Pavle';
 $pozdrav = "Hello" . "World" . "<br>"; // Skládání tečkou (A . B)
 // Skládání s proměnou
 $pozdrav = "Ahoj, jak se máš " . $jmeno;
-
-//+ Vložená proměnná (! pozor funguje pouze u dvojtých uvozovek "$prom")
+//+ Vložená proměnná (! pozor funguje pouze u dvojtých uvozovek)
 $pozdrav = "Ahoj, jmenuji se $jmeno. Je mi $vek,";
 
-// Modifikace proměnné stringu [ .= ]
+// Modifikace proměnné [ .= ]
 $pozdrav .= " bydlím na moravě a tancuju polku.";
 
 
@@ -98,19 +91,17 @@ $pravda = true;
 $nepravda = false;
 $and = $pravda && $nepravda; // OBA musí být pravdou
 $or = $pravda || $nepravda; // ALESPON JEDEN musí být pravdou
-
 // Také můžeme skládat pomocí závorek ()
 $maPropustku = false;
 $slozene = ($pass == "heslo" && $vek >= 21) || $maPropustku;
 
-// Lze se takto zeptat i na proměnnou
+
 if ($slozene) {
     // Kód vykonaný v případě pravdy if,
     // pokud je nepravdívý, blok je přeskočen!
 }
 
-
-// Příklady else { } a podmínky v podmínkce
+// Příklady else{} a podmínky v podmínkce
 $vek = 55;
 if ($vek < 15) {
     echo 'dítě';
@@ -122,10 +113,38 @@ if ($vek < 15) {
         echo 'dospělí';
         
     } else { // Samotný else BEZ ZAVOREK () !!
-        //... pokud neplatí ani jeden if nebo else if (libovolný počet elseifů)
+        //... pokud neplatí ani jeden
     }
 
 }
+
+
+
+////////////////////////////////////////////
+///     FUNKCE - opakovatelný kód       ///
+////////////////////////////////////////////
+// Funkce mají název, vstupní hodnoty (argumenty)
+// a výstupní hodnotu vrácenou pomocí "return"
+
+
+// Příklad funkce:
+function funkceBankomatu($pin, $kolikVybyrame)
+{
+    if ($pin === "123") {
+        return $kolikVybyrame;
+    }
+
+    return null; // Nevybral nic
+}
+// Pak pomocí jména můžeme volat kolikrát chceme
+funkceBankomatu("333", 500);
+funkceBankomatu("768", 20);
+funkceBankomatu("789", 100);
+funkceBankomatu("123", 5);
+
+// Někdy funkce nemusí mít argumenty..
+$ciselnyCas = time(); //+ time() vrací pouze aktuální čas jako jedno číslo.. nic víc
+
 
 
 ////////////////////////////////////////////
@@ -235,3 +254,76 @@ $celkem = 0;
 foreach ($jmena as $prvek) {
     $celkem += $prvek;
 }
+
+/////////////
+//  ASSOC  //
+/////////////
+// Asociativní / Jmenné  pole 
+// Pojmenováváme si indexy jinak než číslem
+
+// Např.:
+$player = [
+    "xp" => 210,
+    "name" => "Jorban",
+    "type" => "Mage",
+    "gold" => 5,
+];
+// K prvkům přístupujeme stejne jako normálně a používame uvozovky
+echo "Vítej" . $player["name"] . " na tréningu (poplatek 5$ + 10xp)";
+$player['gold'] -= 5;
+$player["xp"] += 10;
+
+
+// ZDE je vhodný foreach! nebo když nevíme jak budou číslové prvky
+$vyskyZaku = [
+    "Jirka" => 172,
+    "Anna" => 165,
+    "Honza" => 187,
+    "Dan" => 150,
+];
+$minimum = 170;
+foreach ($vyskyZaku as $vyska) {
+    // Když najdeme vyššího žáka nez minimum
+    if ($vyska >= $minimum) {
+        echo 'může na tobogán';
+    } else {
+        echo 'není to bezpečné';
+    }
+}
+
+///////////////////
+//  POLE v POLY  //
+//////////////////
+// NAPŘÍKLAD - piškvorky hra
+$pole_2d = [
+    [' ', 'x', 'O'],
+    ['O', 'x', 'O'],
+    [' ', ' ', ' '],
+];
+// 2D jako v matematice [x, y]
+$pole_2d[2][1] = 'x'; // nastavime na pozici [2, 1] 
+
+
+// ASSOC pole v poly - Např.: Databáze knih
+$kniha1 = [
+    "id" => 1,
+    "jmeno" => "Romeo a Julie",
+    "stranek" => 210,
+];
+$kniha1 = [
+    "id" => 2,
+    "jmeno" => "Pán prstenů",
+    "stranek" => 323,
+];
+$kniha3 = [
+    "id" => 3,
+    "jmeno" => "Krakatit",
+    "stranek" => 190,
+];
+
+$knihovna = [$kniha1, $kniha2, $kniha3];
+// Přídáme jmén o autora ke knize "Krakatit"
+$knihovna[0]; // vyber je pouze kniha1
+$knihovna[0]["id"]; // vybere kniha1 a potom id
+$knihovna[2]["stranek"] = 200; // Nastavim prvek v prvku
+
