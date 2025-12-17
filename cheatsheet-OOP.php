@@ -30,19 +30,39 @@ class Entity {
     private $health;
     private $damage;
 
+    public function printHP() {
+        return "<br> HP: " . $this->health ."<br>";
+    }
+
+    public function heal($amount){
+        if ($amount < 0) {
+            // nelze healovat do záporu!
+        }else {
+            $this->health += $amount;
+        }
+    }
+
+    public function dealDamage($amount){
+        if ($amount < 0) {
+            // nelze použít zápornou hodnotu!
+        }else {
+            $this->health -= $amount;
+        }
+    }
+
 
     // Konstruktor - zavolaný při vytvoření instance
     function __construct($name) {
         $this->name = $name;
         // Ne vždy musíme předat hodnot -> můžeme nastavit výchozí hodnoty
         $this->health = 100;
-        $this->damage = 1;
+        $this->damage = rand(5, 20);
     }
 
     // Metoda pro vypsání stavu entity
     public function printInfo() {
         echo "<br>~ $this->name ~ <br>";
-        echo "HP: $this->health <br>";
+        $this->printHP();
         echo "DMG: $this->damage <br>";
     } 
 
@@ -89,6 +109,16 @@ $enemy->printInfo();
 $round = 1;
 while ($player->isAlive() && $enemy->isAlive()) {
     echo "<h3> ROUND $round </h3>";
+
+    // Random healing by luck 
+    if(rand(1, 10) == 10) {
+        /// Provedem zapouždření
+        //$player->health += 5; // (nelze použít) private!
+        $player->heal(5);     // setter metoda
+
+        echo " Player healed by luck... +5<br>";
+        $player->printHP();
+    }
     
     $player->attack($enemy);
     $enemy->attack($player);
