@@ -4,6 +4,7 @@
 /**-------------------------**/
 /**  
  * Níže je příklad jednoduchého OOP kódu, který simuluje RPG hru.
+ * -> Pro příklad ze školy nahlédněte do složky OOP-01  
  *                        
  *  Mimo základ OOP syntaxe by bylo dobré vědět a popsat:
  *     - Co je to třída a co objekt
